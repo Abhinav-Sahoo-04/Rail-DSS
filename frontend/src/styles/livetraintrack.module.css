@@ -1,0 +1,91 @@
+.LiveTrainTracking{
+    height: fit-content;
+    width: 100%;
+}
+.dashContentHeadline{
+    padding: 10px 45px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.dashContentHeadline strong{
+    font-size: 24px;
+    color: #3B5B8A;
+}
+.dashContentHeadline button{
+    font-size: 14px;
+    font-weight: 400;
+    color: white;
+    background-color: #3B5B8A;
+    border: none;
+    border-radius: 8px;
+    padding: 10px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+
+}
+.dashContentHeadline button:hover{
+    transform: translateY(-3px);
+    background-color: rgb(64, 64, 218);
+}
+.trainContentWrap{
+    height: fit-content;
+    width: 100%;
+    padding: 30px 45px;
+    display: flex;
+    gap: 20px;
+}
+.trainSchedules{
+    height: fit-content;
+    width: 50%;
+    border-radius: 14px;
+    padding: 24px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    background-color: white;
+}
+.trainSchedules strong{
+    color: #3B5B8A;
+    font-size: 20px;margin-bottom: 8px;
+
+}
+.trainList{
+    width: 100%;
+    height: fit-content;
+}
+.trainList li{
+    list-style: none;
+}
+.header{
+    line-height: 3;
+    width: 100%;
+    /* background-color: gray; */
+    display: flex;
+    color: rgb(95, 95, 95);
+    gap: 5px;
+    margin-top: 10px;
+    font-size: 14px;
+    padding:0px 10px ;
+    background-color: #f9fafb;
+    font-weight: 600;
+}
+.train{
+    width: 30%;
+}
+.status{
+    width: 30%;
+}
+.eta{
+    width: 20%;
+}
+.platform{
+    width: 20%;
+}
+.trainMap{
+    height:600px;
+    width: 50%;
+    border-radius: 14px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    background-color: white;
+    overflow: hidden;
+}
+

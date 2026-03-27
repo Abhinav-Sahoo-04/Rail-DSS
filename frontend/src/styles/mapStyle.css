@@ -1,0 +1,22 @@
+.leaflet-container{
+    height: 100%;
+    width: 100%;
+}
+.reset-btn{
+    padding: 10px;
+    background-color: #3B5B8A;
+    color: white;
+    position: absolute;
+    z-index: 999;
+    top: 10px;
+    right: 10px;
+    /* border-radius: 8px; */
+    border: none;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+.reset-btn:hover{
+    outline: 1px solid white;
+    outline-offset: -3px;
+}

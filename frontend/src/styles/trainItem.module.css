@@ -1,0 +1,56 @@
+.trainItem{
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    /* gap: 5px; */
+    font-size: 12px;
+    align-items: center;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.4);
+}
+.trainItem:hover{
+    background-color: #f9fafb;
+    
+}
+.train{
+    flex-shrink: 0;
+    width: 30%;
+}
+.train h3{
+    font-size: 16px;
+    font-weight: 500;
+}
+.train h4{
+    font-size: 14px;
+    font-weight: 400;
+}
+.status{
+    width: 30%;
+    flex-shrink: 0;
+
+}
+.eta{
+    width: 20%;
+    flex-shrink: 0;
+
+}
+.platform{
+    width: 20%;
+    flex-shrink: 0;
+    text-align: right;
+
+}
+.success {
+  color: green;
+  font-weight: bold;
+  padding: 3px 5px;
+  background-color: #10B9811A;
+  border-radius: 100vw 100vw 100vw 100vw;
+}
+
+.danger {
+  color: red;
+  font-weight: bold;
+  padding: 3px 5px;
+  background-color: #b910101a;
+  border-radius: 100vw 100vw 100vw 100vw;
+}

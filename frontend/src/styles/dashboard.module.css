@@ -1,0 +1,132 @@
+.dashboard{
+    height: 10vh;
+    display: flex;
+
+}
+.dashLeft{
+    height: 100vh;
+    width: 250px;
+    position: relative;
+}
+.dashRight{
+    height: fit-content;
+    width: calc(100vw - 250px);
+    background-color: whitesmoke;
+}
+.dashTop{
+    width: 100%;
+    height: 100px;
+    position: relative;
+}
+.dashActivity{
+    padding: 20px;
+    height: fit-content;
+    display: flex;
+    justify-content: space-evenly;
+}
+.activity{
+    height: 97px;
+    width: 380px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 8px;
+
+}
+.activity:hover{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.activity2{
+    height: 97px;
+    width: 360px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 8px;
+    background-color: #3B5B8A;
+}
+.activity2:hover{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.activity2 .activityIcon{
+    background-color:   white;
+
+}
+.activity2 .activityInfo strong{
+    color: white;
+}
+.activity2 .activityInfo h2{
+    color: white;
+}
+.activity3{
+    height: 97px;
+    width: 360px;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+    border-radius: 8px;
+
+}
+.activity3:hover{
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+.activity3 .activityIcon {
+   background-color: #10B9811A;
+   color: #10B981;
+
+}
+.activity3 .activityInfo h2 {
+   color: #10B981;
+
+}
+.activityIcon{
+    height: 48px;
+    width: 48px;
+    border-radius: 12px;
+    background-color: #D0e2f2;
+    color: royalblue;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.activityIcon strong{
+   font-size: 20px;
+}
+.activityInfo{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+.activityInfo strong{
+    color: grey;
+}
+.activityInfo{
+    color: #1f2937;
+}
+.dashLink{
+    margin: 30px 0px;
+    display: flex;
+    width: 100%;
+    padding:5px 45px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.4);
+}
+.dashLink li{
+    list-style: none;
+    color: #3B5B8A;
+    padding: 8px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 400;
+}
+.dashLink li:hover{
+    border-bottom: 2px solid #3B5B8A;
+}
