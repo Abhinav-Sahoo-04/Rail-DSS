@@ -9,6 +9,11 @@
     font-size: 16px;
     margin: 0;
 }
+.listItem a{
+    color: white;
+    text-decoration: none;
+}
+
 
 .listItem:hover{
     background-color: rgb(33, 67, 167);

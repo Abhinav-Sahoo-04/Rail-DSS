@@ -26,7 +26,7 @@ export default function Dashboard() {
           </div>
           <div className={styles.activity2}>
             <div className={styles.activityIcon}>
-              <strong><i class="ri-time-line"></i></strong>
+              <strong><i className="ri-time-line"></i></strong>
             </div>
             <div className={styles.activityInfo}>
               <strong>Next Arrival</strong>
@@ -35,7 +35,7 @@ export default function Dashboard() {
           </div>
           <div className={styles.activity3}>
             <div className={styles.activityIcon}>
-              <strong><i class="ri-percent-line"></i></strong>
+              <strong><i className="ri-percent-line"></i></strong>
             </div>
             <div className={styles.activityInfo}>
               <strong>System status</strong>
@@ -44,8 +44,8 @@ export default function Dashboard() {
           </div>
         </div>
         <ul className={styles.dashLink}>
-          <li>Live Tracking</li>
-          <li>AI Suggestion</li>
+          <li key={'live-tracking'}>Live Tracking</li>
+          <li key={'Ai-suugetion'}>AI Suggestion</li>
         </ul>
         <LiveTrainTracking/>
       </div>

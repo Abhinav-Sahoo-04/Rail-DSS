@@ -3,7 +3,7 @@ import styles from '../styles/sidebarItem.module.css'
 
 export default function SidebarContentItem({ele}) {
   return (
-    <li className={styles.listItem}>
+    <li key={ele.name} className={styles.listItem}>
      {ele.icon} {ele.name}
     </li>
   )

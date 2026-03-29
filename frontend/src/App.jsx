@@ -1,16 +1,18 @@
 
 import './App.css'
-
+import { BrowserRouter,Routes,Route } from 'react-router-dom'
 import React from 'react'
 import Dashboard from './pages/Dashboard'
 import Login from './pages/Login'
 
 export default function App() {
   return (
-    <div>
-      {/* <Dashboard/> */}
-      <Login/>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Login />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+      </Routes>
+    </BrowserRouter>
   )
 }
 
