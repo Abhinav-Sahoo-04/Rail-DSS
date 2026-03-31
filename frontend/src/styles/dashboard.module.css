@@ -112,6 +112,10 @@
 .activityInfo{
     color: #1f2937;
 }
+.activity2 .activityInfo h3{
+    color: white;
+    font-weight: 400;
+}
 .dashLink{
     margin: 30px 0px;
     display: flex;

@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from .trainDelay import get_live_train_status
 # from rest_framework.viewsets import ModelViewSet 
 from Account.models import User
 from Account.serializers import UserSerializer
@@ -50,3 +51,14 @@ def get_user(request):
     else:
         return JsonResponse({},safe=False)
     
+
+
+def get_live_status(request,train_no):
+    result=get_live_train_status(train_no)
+    if result!=None:
+        context={
+            'message':result
+        }
+        return JsonResponse(context,safe=False)
+    else:
+        return JsonResponse({"message":"On Time"})

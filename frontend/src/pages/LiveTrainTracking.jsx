@@ -62,7 +62,7 @@ export default function LiveTrainTracking({ trainData }) {
                 <TrainItem
                   key={train.train_number}
                   color="success"
-                  msg="ontime"
+                  msg="On Time"
                   train={train}
                 />
               ))}
