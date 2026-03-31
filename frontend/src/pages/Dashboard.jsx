@@ -1,54 +1,47 @@
-import React from 'react';
-import styles from '../styles/dashboard.module.css';
-import Sidebar from '../components/Sidebar';
-import Header from '../components/Header';
-import LiveTrainTracking from './LiveTrainTracking';
+import React, { useState, useEffect } from "react";
+import { liveAtStation } from "irctc-connect";
+import styles from "../styles/dashboard.module.css";
+import Sidebar from "../components/Sidebar";
+import Header from "../components/Header";
+import LiveTrainTracking from "./LiveTrainTracking";
+import axios from "axios";
 
 export default function Dashboard() {
+  const [trainData, setTrainData] = useState([]);
+
+  const getTT = async () => {
+    try {
+      const result = await axios.get(import.meta.env.VITE_TRAIN_API);
+      setTrainData(result.data); // use result.data instead of result
+      // console.log(result.data);
+    } catch (e) {
+      console.error("Error fetching train data:", e);
+    }
+  };
+
+  // Run once when component mounts
+  useEffect(() => {
+    getTT();
+  }, []);
+
   return (
     <div className={styles.dashboard}>
       <div className={styles.dashLeft}>
-        <Sidebar/>
+        <Sidebar />
       </div>
       <div className={styles.dashRight}>
         <div className={styles.dashTop}>
-          <Header/>
+          <Header  />
         </div>
         <div className={styles.dashActivity}>
-          <div className={styles.activity}>
-            <div className={styles.activityIcon}>
-              <strong>8</strong>
-            </div>
-            <div className={styles.activityInfo}>
-              <strong>Monitored Trains</strong>
-              <h2>Active Model</h2>
-            </div>
-          </div>
-          <div className={styles.activity2}>
-            <div className={styles.activityIcon}>
-              <strong><i className="ri-time-line"></i></strong>
-            </div>
-            <div className={styles.activityInfo}>
-              <strong>Next Arrival</strong>
-              <h2>In 4 Minute</h2>
-            </div>
-          </div>
-          <div className={styles.activity3}>
-            <div className={styles.activityIcon}>
-              <strong><i className="ri-percent-line"></i></strong>
-            </div>
-            <div className={styles.activityInfo}>
-              <strong>System status</strong>
-              <h2>Optimal</h2>
-            </div>
-          </div>
+          {/* Your activity blocks */}
         </div>
         <ul className={styles.dashLink}>
-          <li key={'live-tracking'}>Live Tracking</li>
-          <li key={'Ai-suugetion'}>AI Suggestion</li>
+          <li key={"live-tracking"}>Live Tracking</li>
+          <li key={"Platform-Allocation"}>Platform Allocation</li>
         </ul>
-        <LiveTrainTracking/>
+        <LiveTrainTracking trainData={trainData.data} />
       </div>
     </div>
-  )
+  );
 }

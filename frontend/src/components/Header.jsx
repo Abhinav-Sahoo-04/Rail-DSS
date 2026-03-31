@@ -1,8 +1,28 @@
 import React, { useState, useEffect } from "react";
 import styles from '../styles/header.module.css';
+import axios from "axios";
 
 export default function Header() {
   const [time, setTime] = useState(new Date());
+  const [user,setUser]=useState('')
+  
+  const getUser = async () => {
+    try {
+      const result = await axios.get(import.meta.env.VITE_USER_API);
+      console.log(import.meta.env.VITE_USER_API);
+      
+    ; // use result.data instead of result
+      // console.log(result.data);
+      setUser(result.data.username)
+    } catch (e) {
+      console.error("Error fetching train data:", e);
+    }
+  };
+
+  // Run once when component mounts
+  useEffect(() => {
+    getUser();
+  }, []);
 
   useEffect(() => {
     // Update time every second
@@ -22,7 +42,7 @@ export default function Header() {
       <div className={styles.headerRight}>
          <img src="vite.svg" alt="vite.svg" />
          <span>
-            <h3>Abhinav Sahoo</h3>
+            <h3>{user}</h3>
             <h4>Station Master</h4>
             </span>
 

@@ -1,8 +1,10 @@
 from django.shortcuts import render
-from rest_framework.viewsets import ModelViewSet 
+from django.http import JsonResponse
+# from rest_framework.viewsets import ModelViewSet 
 from Account.models import User
 from Account.serializers import UserSerializer
 from django.views.decorators.csrf import csrf_exempt
+from .trainData import get_train_data
 # Create your views here.
 # class UserViewset(ModelViewSet):
 #     queryset=User.objects.all()
@@ -19,6 +21,32 @@ def user_login(request):
         print(username, password)
         user=User.objects.filter(username__iexact=username,password__iexact=password).exists()
         if user:
+            all_user=User.objects.all()
+            for i in all_user:
+                i.is_active=False
+                i.save()
+            user=User.objects.get(username=username,password=password)
+            user.is_active=True
+            user.save()
             return JsonResponse({"message": "Login received", "username": username})
         else:
             return JsonResponse({"message": "Invalid Username"})
+
+
+def train_data(request):
+    result=get_train_data()
+    # print(result)
+    return JsonResponse(result,safe=False)
+
+
+def get_user(request):
+    user=User.objects.filter(is_active=True).exists()
+    if user:
+        active_user=User.objects.get(is_active=True)
+        context={
+            "username":active_user.username
+        }
+        return JsonResponse(context,safe=False)
+    else:
+        return JsonResponse({},safe=False)
+    

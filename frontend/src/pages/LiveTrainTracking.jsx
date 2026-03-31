@@ -6,11 +6,11 @@ import styles from "../styles/livetraintrack.module.css";
 import "../styles/mapStyle.css";
 import TrainItem from "../components/TrainItem";
 
-const DEFAULT_CENTER= [22.5829, 88.3428];
+const DEFAULT_CENTER = [22.5829, 88.3428];
 const DEFAULT_ZOOM = 13;
 
 // Helper component to reset view
-function ResetViewButton() {
+function ResetViewButton({ trainData = [] }) {
   const map = useMap();
 
   const handleClick = () => {
@@ -18,26 +18,26 @@ function ResetViewButton() {
   };
 
   return (
-    <button
-      onClick={handleClick}
-      className="reset-btn"
-    >
+    <button onClick={handleClick} className="reset-btn">
       Reset View
     </button>
   );
 }
 
-export default function LiveTrainTracking() {
+export default function LiveTrainTracking({ trainData }) {
+  // console.log("from live tracking");
+  // console.log(trainData);
+
   const marker = {
     geocode: DEFAULT_CENTER,
-    popup: "Howrah Junction Railway Station"
+    popup: "Howrah Junction Railway Station",
   };
 
   const customIcon = new L.Icon({
     iconUrl: "icon-marker.png",
     iconSize: [38, 38],
     iconAnchor: [19, 38],
-    popupAnchor: [0, -38]
+    popupAnchor: [0, -38],
   });
 
   return (
@@ -50,14 +50,23 @@ export default function LiveTrainTracking() {
         <div className={styles.trainSchedules}>
           <strong>Monitored Trains</strong>
           <ul className={styles.trainList}>
-            <li className={styles.header}>
+            <li key={'train-head'} className={styles.header}>
               <p className={styles.train}>Train</p>
               <p className={styles.status}>Status</p>
               <p className={styles.eta}>ETA</p>
-              <p className={styles.platform}>Platform</p>
+              <p className={styles.platform}>ETD</p>
             </li>
-            <TrainItem color="success" msg={"ontime"} />
-            <TrainItem color="danger" msg={"Delayed"} />
+
+            {Array.isArray(trainData) &&
+              trainData.map((train) => (
+                <TrainItem
+                  key={train.train_number}
+                  color="success"
+                  msg="ontime"
+                  train={train}
+                />
+              ))}
+
             {/* more TrainItems */}
           </ul>
         </div>

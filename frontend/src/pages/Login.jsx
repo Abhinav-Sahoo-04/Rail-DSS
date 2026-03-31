@@ -20,6 +20,9 @@ export default function Login() {
       }
       else{
         console.log("valid user");
+        console.log(response.data.username);
+        
+        
         navigate('/dashboard');
         
       }
