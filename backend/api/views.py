@@ -6,6 +6,7 @@ from Account.models import User
 from Account.serializers import UserSerializer
 from django.views.decorators.csrf import csrf_exempt
 from .trainData import get_train_data
+from .trainArrange import get_train_arrange
 # Create your views here.
 # class UserViewset(ModelViewSet):
 #     queryset=User.objects.all()
@@ -62,3 +63,10 @@ def get_live_status(request,train_no):
         return JsonResponse(context,safe=False)
     else:
         return JsonResponse({"message":"On Time"})
+    
+def optimized_train(request):
+    results=get_train_arrange()
+    if results!=None:
+        return JsonResponse({'arranged_data':results},safe=False)
+    else:
+        return JsonResponse({"arranged_data":None})

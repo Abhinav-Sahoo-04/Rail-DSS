@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import {Routes,Route,Link} from 'react-router-dom'
 import { liveAtStation } from "irctc-connect";
 import styles from "../styles/dashboard.module.css";
 import Sidebar from "../components/Sidebar";
 import Header from "../components/Header";
 import LiveTrainTracking from "./LiveTrainTracking";
+import PlatformAllocation from './PlatformAllocation'
 import axios from "axios";
 
 export default function Dashboard() {
@@ -94,10 +96,16 @@ export default function Dashboard() {
           </div>
         </div>
         <ul className={styles.dashLink}>
-          <li key={"live-tracking"}>Live Tracking</li>
-          <li key={"Platform-Allocation"}>Platform Allocation</li>
+          <li key={"live-tracking"}><Link to='/dashboard' >Live Tracking</Link></li>
+          <li key={"Platform-Allocation"}><Link to='/dashboard/platform' >Platform Allocation</Link></li>
         </ul>
-        <LiveTrainTracking trainData={trainData.data} />
+        <Routes>
+        
+          <Route index element={
+            <LiveTrainTracking trainData={trainData.data} />
+          } />
+          <Route path='/platform' element={<PlatformAllocation/>} />
+        </Routes>
       </div>
     </div>
   );

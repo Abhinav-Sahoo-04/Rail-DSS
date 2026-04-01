@@ -6,7 +6,7 @@ import styles from "../styles/livetraintrack.module.css";
 import "../styles/mapStyle.css";
 import TrainItem from "../components/TrainItem";
 
-const DEFAULT_CENTER = [22.5829, 88.3428];
+const DEFAULT_CENTER = [20.4654939, 85.9007467];
 const DEFAULT_ZOOM = 13;
 
 // Helper component to reset view
@@ -30,7 +30,7 @@ export default function LiveTrainTracking({ trainData }) {
 
   const marker = {
     geocode: DEFAULT_CENTER,
-    popup: "Howrah Junction Railway Station",
+    popup: "Cuttack Railway Station",
   };
 
   const customIcon = new L.Icon({

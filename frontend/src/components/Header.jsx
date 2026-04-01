@@ -36,7 +36,7 @@ export default function Header() {
   return (
     <header className={styles.header}>
       <div className={styles.headerLeft}>
-        <strong>Station Controller Dashboard – Howrah Jn</strong>
+        <strong>Station Controller Dashboard – Cuttack Railway Station</strong>
         <span><p>AI Confidence: 97%</p>{time.toLocaleTimeString()} • Last Updated: just now</span>
       </div>
       <div className={styles.headerRight}>

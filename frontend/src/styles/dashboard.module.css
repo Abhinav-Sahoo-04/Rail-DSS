@@ -131,6 +131,9 @@
     font-size: 16px;
     font-weight: 400;
 }
+.dashLink li a{
+    text-decoration: none;
+}
 .dashLink li:hover{
     border-bottom: 2px solid #3B5B8A;
 }
