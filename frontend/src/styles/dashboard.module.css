@@ -137,3 +137,12 @@
 .dashLink li:hover{
     border-bottom: 2px solid #3B5B8A;
 }
+.dashActiveLink{
+    list-style: none;
+    color: #3B5B8A;
+    padding: 8px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 400;
+    border-bottom: 2px solid #3B5B8A;
+}

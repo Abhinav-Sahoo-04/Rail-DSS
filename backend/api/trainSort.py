@@ -11,7 +11,7 @@ import json
 
 from datetime import datetime
 
-RESERVATION_WINDOW_MINUTES = 10
+RESERVATION_WINDOW_MINUTES = 300
 PLATFORM_BUFFER_MINUTES    = 3
 TOTAL_PLATFORMS            = 4
 
@@ -38,10 +38,14 @@ WEIGHTS = {"train_type": 0.60, "halt_time": 0.25, "arrival": 0.15}
 # ── Internal helpers ───────────────────────────────────────────
 
 def _to_min(t: str) -> int:
+    if not t:
+        return 0          # treat missing time as midnight; adjust default as needed
     p = t.split(":")
     return int(p[0]) * 60 + int(p[1])
 
 def _halt(arr: str, dep: str) -> int:
+    if not arr or not dep:
+        return 0
     return max(0, _to_min(dep) - _to_min(arr))
 
 def _norm(v, lo, hi):
@@ -60,13 +64,14 @@ def _score(train: dict, pool: list) -> float:
     )
 
 def _clean(train: dict, extra: dict) -> dict:
-    """Return only the fields the frontend needs."""
+    arr = train.get("arrival_time") or ""
+    dep = train.get("departure_time") or ""
     return {
-        "train_no"       : train["train_no"],
-        "train_name"     : train["train_name"],
-        "arrival_time"   : train["arrival_time"][:5],
-        "departure_time" : train["departure_time"][:5],
-        "train_type"     : train["train_type"],
+        "train_no"       : train.get("train_no", ""),
+        "train_name"     : train.get("train_name", ""),
+        "arrival_time"   : arr[:5] if arr else None,
+        "departure_time" : dep[:5] if dep else None,
+        "train_type"     : train.get("train_type", "other"),
         **extra
     }
 
@@ -74,40 +79,32 @@ def _clean(train: dict, extra: dict) -> dict:
 # ── Main function ──────────────────────────────────────────────
 
 def allocate_platforms(data: list[dict], simulate_time: str = None) -> dict:
-    """
-    Allocates platforms to trains based on current time and priority.
+    # Strip out any records missing critical time fields
+    data = [
+        t for t in data
+        if t.get("arrival_time") and t.get("departure_time")
+    ]
 
-    Args:
-        data          : list of train dicts with keys —
-                        train_no, train_name, arrival_time,
-                        departure_time, train_type
-        simulate_time : 'HH:MM' to test at a specific time.
-                        Pass None to use real current time.
-
-    Returns:
-        {
-            "current_time" : "HH:MM",
-            "active"       : [...],   # trains currently at a platform
-            "reserve"      : [...],   # trains arriving within 5 min — platform assigned
-            "pending"      : [...],   # trains arriving later — no platform yet
-            "departed"     : [...],   # trains that have left
-            "conflicts"    : [...]    # trains that couldn't get a platform
+    if not data:
+        return {
+            "current_time" : simulate_time or datetime.now().strftime("%H:%M"),
+            "active"       : [],
+            "reserve"      : [],
+            "pending"      : [],
+            "departed"     : [],
+            "conflicts"    : [],
         }
 
-    Each train dict contains:
-        train_no, train_name, arrival_time, departure_time, train_type,
-        + status-specific fields (platform, priority_rank, conflict, eta_minutes)
-    """
     now = _to_min(simulate_time) if simulate_time else datetime.now().hour * 60 + datetime.now().minute
     current_time_str = simulate_time or datetime.now().strftime("%H:%M")
 
     # ── Step 1: classify by time status ───────────────────────
     classified = []
     for t in data:
-        arr      = _to_min(t["arrival_time"])
-        dep      = _to_min(t["departure_time"])
-        free_at  = dep + PLATFORM_BUFFER_MINUTES
-        eta      = arr - now
+        arr     = _to_min(t["arrival_time"])
+        dep     = _to_min(t["departure_time"])
+        free_at = dep + PLATFORM_BUFFER_MINUTES
+        eta     = arr - now
 
         if now > free_at:
             status = "departed"
@@ -120,10 +117,20 @@ def allocate_platforms(data: list[dict], simulate_time: str = None) -> dict:
 
         classified.append({**t, "_arr": arr, "_dep": dep, "_free_at": free_at, "_eta": eta, "_status": status})
 
+    # ── Step 1b: cap reserve at 5 — overflow goes to pending ──
+    RESERVE_CAP = 5
+    reserve_pool = [t for t in classified if t["_status"] == "reserve"]
+    reserve_pool.sort(key=lambda t: t["_eta"])           # closest ETA first
+
+    for t in reserve_pool[RESERVE_CAP:]:                 # beyond top-5 → pending
+        t["_status"] = "pending"
+
     # ── Step 2: score and sort candidates (active + reserve) ──
     candidates = [t for t in classified if t["_status"] in ("active", "reserve")]
     pending    = [t for t in classified if t["_status"] == "pending"]
     departed   = [t for t in classified if t["_status"] == "departed"]
+
+    # ... rest of the function unchanged
 
     if candidates:
         for t in candidates:

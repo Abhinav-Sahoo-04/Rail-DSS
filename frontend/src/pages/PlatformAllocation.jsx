@@ -34,7 +34,7 @@ export default function PlatformAllocation() {
       </div>
 
       {allocate &&
-        [...(allocate.active ?? []), ...(allocate.reserve ?? [])].map((train) => (
+        [...(allocate.active ?? []), ...(allocate.reserve ?? [])].map((train,index) => (
           <>
             <div className={styles.platforms}>
         <small>{train.train_no}</small>
@@ -46,7 +46,11 @@ export default function PlatformAllocation() {
         <div className={styles.boxes}></div>
         <div className={styles.endbox}>X</div>
       </div>
-      <div className={styles.walkway}></div>
+      <div className={styles.walkway}>
+        <div className={styles.platformNo}>
+          <h1>PF{index + 1}</h1>
+        </div>
+      </div>
           </>
         ))}
       
@@ -60,7 +64,7 @@ export default function PlatformAllocation() {
           </li>
           {allocate &&
             allocate.pending?.map((train) => (
-              <li key={train.train_no}>{train.train_no}</li>
+              <li key={train.train_no}>{train.train_no} | {train.train_name}</li>
             ))}
         </ul>
       </div>

@@ -71,7 +71,21 @@
     height: 100%;
     width: 30px;
     background-color: #3B5B8A;
+    position: relative;
 }
+.platformNo{
+    content: "";
+    position: absolute;
+    right: 170%;
+    top: -20px;
+    height: 40px;
+    width: 100px;
+    background:linear-gradient(rgb(255, 179, 0),transparent);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .Choices{
     height: 70vh;
     width: 250px;

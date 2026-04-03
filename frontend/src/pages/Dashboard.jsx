@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {Routes,Route,Link} from 'react-router-dom'
+import {Routes,Route,Link,useLocation } from 'react-router-dom'
 import { liveAtStation } from "irctc-connect";
 import styles from "../styles/dashboard.module.css";
 import Sidebar from "../components/Sidebar";
@@ -7,8 +7,10 @@ import Header from "../components/Header";
 import LiveTrainTracking from "./LiveTrainTracking";
 import PlatformAllocation from './PlatformAllocation'
 import axios from "axios";
+import ManualOverride from "./ManualOverride";
 
 export default function Dashboard() {
+  const location = useLocation();
   const [timeDiff, setTimeDiff] = useState(null);
   const [trainData, setTrainData] = useState([]);
 
@@ -96,15 +98,33 @@ export default function Dashboard() {
           </div>
         </div>
         <ul className={styles.dashLink}>
-          <li key={"live-tracking"}><Link to='/dashboard' >Live Tracking</Link></li>
-          <li key={"Platform-Allocation"}><Link to='/dashboard/platform' >Platform Allocation</Link></li>
-        </ul>
+      <li
+        key="live-tracking"
+        className={location.pathname === '/dashboard' ? styles.dashActiveLink : '' }
+      >
+        <Link to="/dashboard">Live Tracking</Link>
+      </li>
+      <li
+        key="Platform-Allocation"
+        className={location.pathname === '/dashboard/platform' ? styles.dashActiveLink : ''}
+      >
+        <Link to="/dashboard/platform">Platform Allocation</Link>
+      </li>
+      <li
+        key="manual-override"
+        className={location.pathname === '/dashboard/manualOverride' ? styles.dashActiveLink : ''}
+      >
+        <Link to="/dashboard/manualOverride">Manual Override</Link>
+      </li>
+
+    </ul>
         <Routes>
         
           <Route index element={
             <LiveTrainTracking trainData={trainData.data} />
           } />
           <Route path='/platform' element={<PlatformAllocation/>} />
+          <Route path='/manualOverride'  element={<ManualOverride trainData={trainData.data} />} />
         </Routes>
       </div>
     </div>

@@ -70,3 +70,4 @@ def optimized_train(request):
         return JsonResponse({'arranged_data':results},safe=False)
     else:
         return JsonResponse({"arranged_data":None})
+    
