@@ -1,5 +1,6 @@
 import { useState, useMemo } from "react";
 import styles from "../styles/ManualOverride.module.css";
+import axios from "axios";
 
 const PLATFORMS = [1, 2, 3, 4, 5];
 
@@ -145,12 +146,20 @@ export default function ManualOverride({ trainData = [], onOverride = () => {} }
     };
     setOverrides((prev) => [entry, ...prev]);
     onOverride(entry);
+    sendData()
     setForm(initialForm);
     setErrors({});
     setConfirmOpen(false);
     setSubmitted(true);
     setTimeout(() => setSubmitted(false), 3000);
   };
+  const sendData=async()=>{
+    try{
+    const result = await axios.post(import.meta.env.VITE_TRAIN_MANUAL_OVERRIDE,form)
+    }catch{
+      console.log('error');
+    }
+  }
 
   const handleRemove = (id) => {
     setOverrides((prev) => prev.filter((o) => o.id !== id));

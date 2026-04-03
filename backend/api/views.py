@@ -1,6 +1,9 @@
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse,HttpResponse
 from .trainDelay import get_live_train_status
+import os
+import json
+from datetime import datetime
 # from rest_framework.viewsets import ModelViewSet 
 from Account.models import User
 from Account.serializers import UserSerializer
@@ -70,4 +73,44 @@ def optimized_train(request):
         return JsonResponse({'arranged_data':results},safe=False)
     else:
         return JsonResponse({"arranged_data":None})
+
+@csrf_exempt
+def manual_override(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+
+            # 📅 Create filename using today's date
+            today = datetime.now().strftime("%Y-%m-%d")
+            filename = f"manual_override_{today}.json"
+
+            # 📁 Optional: store inside a folder
+            folder = "override_logs"
+            os.makedirs(folder, exist_ok=True)
+
+            filepath = os.path.join(folder, filename)
+
+            # 📖 If file exists → load existing data
+            if os.path.exists(filepath):
+                with open(filepath, "r") as file:
+                    try:
+                        existing_data = json.load(file)
+                    except json.JSONDecodeError:
+                        existing_data = []
+            else:
+                existing_data = []
+
+            # ➕ Append new entry
+            existing_data.append(data)
+
+            # 💾 Save back to file
+            with open(filepath, "w") as file:
+                json.dump(existing_data, file, indent=4)
+
+            return HttpResponse("Data saved successfully")
+
+        except Exception as e:
+            return HttpResponse(f"Error: {str(e)}", status=500)
+
+    return HttpResponse("Invalid request", status=400)
     

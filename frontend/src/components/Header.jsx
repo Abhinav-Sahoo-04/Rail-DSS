@@ -40,7 +40,7 @@ export default function Header() {
         <span><p>AI Confidence: 97%</p>{time.toLocaleTimeString()} • Last Updated: just now</span>
       </div>
       <div className={styles.headerRight}>
-         <img src="vite.svg" alt="vite.svg" />
+         <img src="/user.png" alt="vite.svg" />
          <span>
             <h3>{user}</h3>
             <h4>Station Master</h4>
