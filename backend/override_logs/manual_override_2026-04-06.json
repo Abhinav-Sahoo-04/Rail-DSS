@@ -1,0 +1,34 @@
+[
+    {
+        "train_no": "12146",
+        "train_name": "PURI-LTT WEE",
+        "arrival_time": "23:10",
+        "departure_time": "23:15",
+        "platform": "1",
+        "reason": "demo reason"
+    },
+    {
+        "train_no": "12146",
+        "train_name": "PURI-LTT WEE",
+        "arrival_time": "23:10",
+        "departure_time": "23:15",
+        "platform": "1",
+        "reason": "same reason"
+    },
+    {
+        "train_no": "18118",
+        "train_name": "GNPR-ROU RAJ",
+        "arrival_time": "23:20",
+        "departure_time": "23:25",
+        "platform": "4",
+        "reason": "test reason"
+    },
+    {
+        "train_no": "12801",
+        "train_name": "PURI-NDLS PU",
+        "arrival_time": "23:30",
+        "departure_time": "23:35",
+        "platform": "3",
+        "reason": "just testing"
+    }
+]
